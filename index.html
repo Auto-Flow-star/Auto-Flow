@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automatisation IA & Python pour Entreprises</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            primary: '#0f172a',
+            secondary: '#1e293b',
+            accent: '#3b82f6',
+            muted: '#64748b'
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease-out',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .timeline-line {
+      background: linear-gradient(90deg, #3b82f6 0%, #1e293b 100%);
+    }
+
+    .code-block {
+      font-family: 'Monaco', 'Menlo', monospace;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-gray-200/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <span class="font-semibold text-lg tracking-tight">AutoFlow IA</span>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#problemes" class="text-sm text-muted hover:text-primary transition-colors">Problèmes</a>
+          <a href="#solutions" class="text-sm text-muted hover:text-primary transition-colors">Solutions</a>
+          <a href="#process" class="text-sm text-muted hover:text-primary transition-colors">Process</a>
+          <a href="#resultats" class="text-sm text-muted hover:text-primary transition-colors">Résultats</a>
+          <a href="#contact"
+            class="bg-primary text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-secondary transition-colors">
+            Discuter de votre projet
+          </a>
+        </div>
+        <button id="mobile-menu-btn" class="md:hidden p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+      <div class="px-4 py-4 space-y-3">
+        <a href="#problemes" class="block text-sm text-muted hover:text-primary">Problèmes</a>
+        <a href="#solutions" class="block text-sm text-muted hover:text-primary">Solutions</a>
+        <a href="#process" class="block text-sm text-muted hover:text-primary">Process</a>
+        <a href="#resultats" class="block text-sm text-muted hover:text-primary">Résultats</a>
+        <a href="#contact" class="block bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium text-center">Discuter
+          de votre projet</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="animate-fade-in-up">
+          <div class="inline-flex items-center gap-2 bg-blue-50 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+            Solutions d'automatisation B2B
+          </div>
+          <h1 class="text-4xl lg:text-6xl font-bold leading-tight mb-6">
+            Automatisez vos <span class="gradient-text">processus métier</span> avec l'IA et Python
+          </h1>
+          <p class="text-lg text-muted mb-8 leading-relaxed">
+            Réduisez vos tâches répétitives de 80%. Solutions techniques sur mesure pour entreprises, startups et
+            agences qui veulent gagner en productivité.
+          </p>
+
+          <!-- 3 Benefits -->
+          <div class="grid sm:grid-cols-3 gap-4 mb-10">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-sm">Gain de temps</p>
+                <p class="text-xs text-muted">-80% sur tâches manuelles</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-sm">Zéro erreur</p>
+                <p class="text-xs text-muted">Processus standardisés</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-sm">ROI rapide</p>
+                <p class="text-xs text-muted">Amortissement &lt; 3 mois</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#contact"
+              class="bg-primary text-white px-8 py-4 rounded-xl font-medium hover:bg-secondary transition-all text-center flex items-center justify-center gap-2">
+              Discuter de votre automatisation
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href="#solutions" class="border border-gray-300 text-gray-700 px-8 py-4 rounded-xl font-medium hover:border-gray-400 transition-all text-center">
+              Voir les solutions
+            </a>
+          </div>
+        </div>
+
+        <!-- Abstract Visual -->
+        <div class="relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl transform rotate-3">
+          </div>
+          <div class="relative bg-white rounded-2xl shadow-2xl p-6 border border-gray-100">
+            <div class="flex items-center gap-2 mb-4 pb-4 border-b border-gray-100">
+              <div class="w-3 h-3 rounded-full bg-red-400"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+              <div class="w-3 h-3 rounded-full bg-green-400"></div>
+              <span class="ml-4 text-xs text-muted font-mono">automation_pipeline.py</span>
+            </div>
+            <div class="code-block rounded-lg p-4 text-sm overflow-x-auto">
+              <div class="text-green-400"># Pipeline d'automatisation IA</div>
+              <div class="text-gray-400">import pandas as pd</div>
+              <div class="text-gray-400">from automation import ReportGenerator</div>
+              <div class="mt-2 text-purple-400">class <span class="text-yellow-300">BusinessAutomation</span>:</div>
+              <div class="pl-4 text-blue-400">def <span class="text-yellow-300">__init__</span>(self, data_source):</div>
+              <div class="pl-8 text-gray-300">self.source = data_source</div>
+              <div class="pl-8 text-gray-300">self.ai = ReportGenerator()</div>
+              <div class="pl-4 text-blue-400 mt-2">def <span class="text-yellow-300">generate_insights</span>(self):</div>
+              <div class="pl-8 text-gray-300">insights = self.ai.analyze(self.source)</div>
+              <div class="pl-8 text-green-400">return insights.summarize()</div>
+              <div class="mt-4 text-gray-500"># Exécution automatique...</div>
+              <div class="mt-2 flex items-center gap-2">
+                <span class="text-green-400">✓</span>
+                <span class="text-gray-300">Rapport généré en 2.3s</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-green-400">✓</span>
+                <span class="text-gray-300">Email envoyé à l'équipe</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-green-400">✓</span>
+                <span class="text-gray-300">Slack notifié #reporting</span>
+              </div>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-xs text-muted">
+              <span>Dernière exécution : il y a 2 min</span>
+              <span class="text-green-600 font-medium">● Automatique</span>
+            </div>
+          </div>
+
+          <!-- Floating Stats -->
+          <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-4 border border-gray-100">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-2xl font-bold">847h</p>
+                <p class="text-xs text-muted">économisées/mois</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problems Section -->
+  <section id="problemes" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-4">Ces problèmes vous ralentissent</h2>
+        <p class="text-muted text-lg">Les équipes perdent 30% de leur temps productif sur des tâches qui peuvent être
+          automatisées.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="card-hover bg-gray-50 rounded-2xl p-6 border border-gray-100 scroll-reveal">
+          <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Tâches répétitives manuelles</h3>
+          <p class="text-muted text-sm">Copier-coller, formatage de données, génération de rapports récurrents qui
+            mobilisent vos équipes sur du sans valeur ajoutée.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 rounded-2xl p-6 border border-gray-100 scroll-reveal">
+          <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Surcharge d'informations</h3>
+          <p class="text-muted text-sm">Slack, emails, documents dispersés. Vos collaborateurs passent 2h/jour à
+            chercher et synthétiser l'information.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 rounded-2xl p-6 border border-gray-100 scroll-reveal">
+          <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Reporting chronophage</h3>
+          <p class="text-muted text-sm">Rapports hebdomadaires qui prennent 4h à préparer, souvent obsolètes avant
+            d'être partagés.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 rounded-2xl p-6 border border-gray-100 scroll-reveal">
+          <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Veille concurrentielle lente</h3>
+          <p class="text-muted text-sm">Monitoring manuel des concurrents, agrégation dispersée, décisions prises sur
+            des informations dépassées.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions Section -->
+  <section id="solutions" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-4">Solutions packagées, résultats immédiats</h2>
+        <p class="text-muted text-lg">Trois offres clés en main, développées sur mesure selon vos outils existants.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Offer 1 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden card-hover scroll-reveal">
+          <div class="p-6">
+            <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+              <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Rapports IA automatisés</h3>
+            <p class="text-muted mb-6">Depuis vos Google Sheets, générez des rapports intelligents avec insights
+              exploitables.</p>
+
+            <div class="space-y-3 mb-6">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-sm">Résumé automatique des données</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-sm">Insights et anomalies détectés</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-sm">Livraison PDF + email automatisé</span>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-4 mb-6">
+              <p class="text-xs text-muted uppercase tracking-wide mb-2">Livrable exemple</p>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-sm font-medium">Rapport_Hebdo_AI.pdf</p>
+                  <p class="text-xs text-muted">Généré automatiquement • lu par 12 personnes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="px-6 pb-6">
+            <a href="#contact"
+              class="block w-full text-center border-2 border-primary text-primary font-medium py-3 rounded-xl hover:bg-primary hover:text-white transition-all">
+              Demander ce type d'automatisation
+            </a>
+          </div>
+        </div>
+
+        <!-- Offer 2 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden card-hover scroll-reveal">
+          <div class="p-6">
+            <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+              <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Bot Slack intelligent</h3>
+            <p class="text-muted mb-6">Synthèse quotidienne automatique de vos canaux Slack, extraction des décisions
+              clés.</p>
+
+            <div class="space-y-3 mb-6">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-sm">Résumé quotidien à 18h</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-sm">Extraction des action items</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-sm">Alertes sur décisions critiques</span>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-4 mb-6">
+              <p class="text-xs text-muted uppercase tracking-wide mb-2">Exemple de sortie</p>
+              <div class="bg-white rounded-lg p-3 border border-gray-200">
+                <p class="text-xs font-medium text-purple-600 mb-1">🤖 Résumé du jour — 3 décisions</p>
+                <p class="text-xs text-gray-600">• Lancement produit reporté au Q2</p>
+                <p class="text-xs text-gray-600">• Budget marketing +15% validé</p>
+                <p class="text-xs text-gray-600">• 5 action items assignés</p>
+              </div>
+            </div>
+          </div>
+          <div class="px-6 pb-6">
+            <a href="#contact"
+              class="block w-full text-center border-2 border-primary text-primary font-medium py-3 rounded-xl hover:bg-primary hover:text-white transition-all">
+              Demander ce type d'automatisation
+            </a>
+          </div>
+        </div>
+
+        <!-- Offer 3 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden card-hover scroll-reveal">
+          <div class="p-6">
+            <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+              <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Veille concurrentielle IA</h3>
+            <p class="text-muted mb-6">Monitoring automatisé de vos concurrents, synthèse hebdomadaire avec alertes
+              stratégiques.</p>
+
+            <div class="space-y-3 mb-6">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-sm">Scraping ciblé (site, pricing, news)</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-sm">Résumé IA hebdomadaire</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-sm">Alertes mouvements critiques</span>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-4 mb-6">
+              <p class="text-xs text-muted uppercase tracking-wide mb-2">Exemple de détection</p>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-sm font-medium">🔥 Alerte : Concurrent X</p>
+                  <p class="text-xs text-muted">Baisse de prix -20% détectée sur offre Pro</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="px-6 pb-6">
+            <a href="#contact"
+              class="block w-full text-center border-2 border-primary text-primary font-medium py-3 rounded-xl hover:bg-primary hover:text-white transition-all">
+              Demander ce type d'automatisation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section id="process" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-4">Processus simple, livraison rapide</h2>
+        <p class="text-muted text-lg">De l'analyse à la mise en production en 2 à 4 semaines selon la complexité.</p>
+      </div>
+
+      <div class="relative">
+        <!-- Timeline Line -->
+        <div class="hidden lg:block absolute top-12 left-0 right-0 h-1 timeline-line rounded-full"></div>
+
+        <div class="grid lg:grid-cols-4 gap-8">
+          <!-- Step 1 -->
+          <div class="relative scroll-reveal">
+            <div class="flex flex-col items-center text-center">
+              <div class="w-24 h-24 bg-primary rounded-2xl flex items-center justify-center mb-6 relative z-10 shadow-lg">
+                <span class="text-3xl font-bold text-white">01</span>
+              </div>
+              <div class="bg-gray-50 rounded-2xl p-6 w-full">
+                <h3 class="font-semibold text-lg mb-2">Analyse du besoin</h3>
+                <p class="text-muted text-sm">Call de 30 min pour identifier vos processus clés, vos outils existants et
+                  vos contraintes techniques.</p>
+                <div class="mt-4 flex items-center justify-center gap-2 text-xs text-accent">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>30 minutes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="relative scroll-reveal">
+            <div class="flex flex-col items-center text-center">
+              <div class="w-24 h-24 bg-secondary rounded-2xl flex items-center justify-center mb-6 relative z-10 shadow-lg">
+                <span class="text-3xl font-bold text-white">02</span>
+              </div>
+              <div class="bg-gray-50 rounded-2xl p-6 w-full">
+                <h3 class="font-semibold text-lg mb-2">Proposition claire</h3>
+                <p class="text-muted text-sm">Devis détaillé avec architecture technique, délais précis et périmètre
+                  fonctionnel validé.</p>
+                <div class="mt-4 flex items-center justify-center gap-2 text-xs text-accent">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span>Document technique</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="relative scroll-reveal">
+            <div class="flex flex-col items-center text-center">
+              <div class="w-24 h-24 bg-accent rounded-2xl flex items-center justify-center mb-6 relative z-10 shadow-lg">
+                <span class="text-3xl font-bold text-white">03</span>
+              </div>
+              <div class="bg-gray-50 rounded-2xl p-6 w-full">
+                <h3 class="font-semibold text-lg mb-2">Développement</h3>
+                <p class="text-muted text-sm">Code Python robuste, intégrations API, tests automatisés. Livraisons
+                  intermédiaires régulières.</p>
+                <div class="mt-4 flex items-center justify-center gap-2 text-xs text-accent">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                  </svg>
+                  <span>2-4 semaines</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="relative scroll-reveal">
+            <div class="flex flex-col items-center text-center">
+              <div class="w-24 h-24 bg-green-600 rounded-2xl flex items-center justify-center mb-6 relative z-10 shadow-lg">
+                <span class="text-3xl font-bold text-white">04</span>
+              </div>
+              <div class="bg-gray-50 rounded-2xl p-6 w-full">
+                <h3 class="font-semibold text-lg mb-2">Livraison & doc</h3>
+                <p class="text-muted text-sm">Mise en production, formation équipe, documentation technique complète
+                  pour l'autonomie.</p>
+                <div class="mt-4 flex items-center justify-center gap-2 text-xs text-accent">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Go live</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Examples Section -->
+  <section id="resultats" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 scroll-reveal">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-4">Exemples de résultats concrets</h2>
+        <p class="text-muted text-lg">Aperçu des livrables générés par les automatisations.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Example 1 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 scroll-reveal">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium text-sm">Rapport IA — Ventes Q3</p>
+              <p class="text-xs text-muted">Auto-généré • 14/10/2024</p>
+            </div>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-4 space-y-3">
+            <div>
+              <p class="text-xs font-medium text-gray-500 uppercase">Résumé exécutif</p>
+              <p class="text-sm text-gray-800 mt-1">Croissance de +23% vs Q2. 3 produits sur-performent. Attention sur
+                le segment Enterprise (-8%).</p>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-gray-500 uppercase">Insights IA</p>
+              <ul class="text-sm text-gray-700 mt-1 space-y-1">
+                <li>• Correlation forte: démo vidéo → conversion +34%</li>
+                <li>• Anomalie: churn élevé sur clients &lt; 6 mois</li>
+              </ul>
+            </div>
+            <div class="pt-2 border-t border-gray-200">
+              <p class="text-xs text-green-600 font-medium">✓ Actions recommandées générées</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 scroll-reveal">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium text-sm">Résumé Slack — Équipe Tech</p>
+              <p class="text-xs text-muted">Quotidien • 15/10/2024</p>
+            </div>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-4 space-y-3">
+            <div>
+              <p class="text-xs font-medium text-gray-500 uppercase">Décisions importantes</p>
+              <ul class="text-sm text-gray-700 mt-1 space-y-1">
+                <li>• Migration API reportée à janvier</li>
+                <li>• Nouvelle recrue dev senior confirmée</li>
+                <li>• Bug critique résolu (#PR-245)</li>
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-gray-500 uppercase">Actions en attente</p>
+              <ul class="text-sm text-gray-700 mt-1 space-y-1">
+                <li>• @alice: Documentation à finaliser</li>
+                <li>• @bob: Revue de code PR #256</li>
+              </ul>
+            </div>
+            <div class="pt-2 border-t border-gray-200">
+              <p class="text-xs text-purple-600 font-medium">📊 48 messages analysés • 3 canaux</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 scroll-reveal">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium text-sm">Veille concurrentielle — SaaS</p>
+              <p class="text-xs text-muted">Hebdomadaire • 13/10/2024</p>
+            </div>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-4 space-y-3">
+            <div>
+              <p class="text-xs font-medium text-gray-500 uppercase">Mouvements détectés</p>
+              <ul class="text-sm text-gray-700 mt-1 space-y-1">
+                <li>• Competiteur A: Nouvelle fonctionnalité IA</li>
+                <li>• Competiteur B: Baisse de prix -18%</li>
+                <li>• Competiteur C: Partenariat avec Microsoft</li>
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-gray-500 uppercase">Recommandations IA</p>
+              <ul class="text-sm text-gray-700 mt-1 space-y-1">
+                <li>• Surveiller adoption nouvelle feature IA</li>
+                <li>• Analyser impact pricing sur notre segment</li>
+              </ul>
+            </div>
+            <div class="pt-2 border-t border-gray-200">
+              <p class="text-xs text-blue-600 font-medium">🔍 12 sites analysés • 3 alertes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- Contact Section -->
+<section id="contact" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-4">Discutons de votre projet</h2>
+        <p class="text-muted text-lg">Un call de 30 minutes pour identifier vos besoins et vous proposer une solution
+          adaptée.</p>
+      </div>
+
+      <div class="bg-gray-50 rounded-2xl p-8 md:p-12 scroll-reveal">
+        <!-- FORMULAIRE MODIFIÉ ICI -->
+        <form action="https://formspree.io/f/mzdapjyb" method="POST" class="space-y-6">
+          <!-- Champs cachés pour Formspree -->
+          <input type="hidden" name="_subject" value="Nouveau contact AutoFlow IA">
+          <input type="hidden" name="_replyto" value="bernardjeanmichel6@gmail.com">
+          <input type="hidden" name="_language" value="fr">
+          <input type="hidden" name="_next" value="https://votresite.com/merci.html">
+          <input type="hidden" name="_cc" value="autre-email@exemple.com"> <!-- Optionnel : copie à un autre email -->
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nom et prénom</label>
+              <input type="text" id="name" name="name" required
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
+                placeholder="John Doe">
+            </div>
+            <div>
+              <label for="company" class="block text-sm font-medium text-gray-700 mb-2">Entreprise</label>
+              <input type="text" id="company" name="company"
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
+                placeholder="Votre société">
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email professionnel</label>
+              <input type="email" id="email" name="email" required
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
+                placeholder="john@entreprise.com">
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Téléphone (optionnel)</label>
+              <input type="tel" id="phone" name="phone"
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
+                placeholder="+33 1 23 45 67 89">
+            </div>
+          </div>
+
+          <div>
+            <label for="needs" class="block text-sm font-medium text-gray-700 mb-2">Quel est votre besoin principal
+              ?</label>
+            <textarea id="needs" name="needs" rows="4" required
+              class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
+              placeholder="Décrivez brièvement les tâches que vous souhaitez automatiser, les outils que vous utilisez (Slack, Google Sheets, etc.) et le gain de temps escompté."></textarea>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <input type="checkbox" id="privacy" name="privacy" required class="mt-1">
+            <label for="privacy" class="text-sm text-gray-600">
+              J'accepte que mes données soient traitées dans le cadre de ma demande de contact. Vos données ne seront
+              jamais partagées avec des tiers.
+            </label>
+          </div>
+
+          <button type="submit"
+            class="w-full bg-primary text-white font-medium py-4 rounded-xl hover:bg-secondary transition-all flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Envoyer ma demande
+          </button>
+
+          <p class="text-center text-sm text-gray-500 mt-4">
+            Nous vous répondons sous 24h ouvrées.
+          </p>
+        </form>
+        <!-- FIN DU FORMULAIRE MODIFIÉ -->
+
+
+          <div class="mt-12 pt-12 border-t border-gray-200">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium">Expert dédié</p>
+                  <p class="text-sm text-gray-500">Ingénieur Python/IA senior</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-accent rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium">Garantie résultats</p>
+                  <p class="text-sm text-gray-500">Support 3 mois inclus</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-medium">Rapidité</p>
+                  <p class="text-sm text-gray-500">Démarrage sous 48h</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-primary text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <span class="font-semibold text-lg">AutoFlow IA</span>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-8">
+          <a href="#problemes" class="text-sm text-gray-300 hover:text-white transition-colors">Problèmes</a>
+          <a href="#solutions" class="text-sm text-gray-300 hover:text-white transition-colors">Solutions</a>
+          <a href="#process" class="text-sm text-gray-300 hover:text-white transition-colors">Process</a>
+          <a href="#resultats" class="text-sm text-gray-300 hover:text-white transition-colors">Résultats</a>
+          <a href="#contact" class="text-sm text-gray-300 hover:text-white transition-colors">Contact</a>
+        </div>
+
+        <div class="text-center md:text-right">
+          <p class="text-sm text-gray-300">© 2024 AutoFlow IA. Tous droits réservés.</p>
+          <p class="text-xs text-gray-400 mt-1">Solutions d'automatisation IA pour entreprises</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+
+    // Scroll reveal
+    const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    scrollRevealElements.forEach(el => observer.observe(el));
+
+    // Form submission
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+      
+      // Here you would typically send the data to your backend
+      console.log('Form data:', data);
+      
+      // Show success message
+      alert('Merci ! Votre demande a été envoyée. Nous vous répondrons dans les 24h.');
+      this.reset();
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          // Close mobile menu if open
+          document.getElementById('mobile-menu').classList.add('hidden');
+          
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
